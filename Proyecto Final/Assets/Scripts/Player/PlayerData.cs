@@ -23,5 +23,8 @@ public class PlayerData : MonoBehaviour
     {
         live -= 3;
     }
-
+    public void Healing(int value)
+    {
+        live += value;
+    }
 }

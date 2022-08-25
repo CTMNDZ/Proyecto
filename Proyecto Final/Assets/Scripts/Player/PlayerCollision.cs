@@ -33,6 +33,18 @@ public class PlayerCollision : MonoBehaviour
             playerData.Damage(other.gameObject.GetComponent<Enemy>().DamagePoints);
         }
         
+        if (other.gameObject.CompareTag("Powerups"))
+        {
+            Destroy(other.gameObject);
+            //sumar vida
+            playerData.Healing(other.gameObject.GetComponent<Life>().HealPoints);
+
+            //SUMAS SCORE
+            GameManager.Score++;
+            Debug.Log("GameManager.Score");
+        }
+
+        
          if (other.gameObject.CompareTag("Munition"))
         {
             Debug.Log("ENTRANDO EN COLISION CON " + other.gameObject.name);
@@ -42,6 +54,9 @@ public class PlayerCollision : MonoBehaviour
             {
                 Debug.Log("GAME OVER");
             }
+
+            GameManager.Score--;
+            Debug.Log(GameManager.Score);
         }
     }
 
