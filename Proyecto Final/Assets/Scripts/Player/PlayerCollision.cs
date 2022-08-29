@@ -22,6 +22,7 @@ public class PlayerCollision : MonoBehaviour
     {
         playerData = GetComponent<PlayerData>();
         TimeTouchEnemy = 0;
+        playerData.Points = 0;
     }
 
     // Update is called once per frame
@@ -40,10 +41,18 @@ public class PlayerCollision : MonoBehaviour
             playerData.Healing(other.gameObject.GetComponent<Life>().HealPoints);
 
             //SUMAS SCORE
-            GameManager.Score++;
-            Debug.Log("GameManager.Score");
         }
 
+        if (other.gameObject.CompareTag("Points"))
+        {
+            Destroy(other.gameObject);
+            GameManager.Score++;
+            Debug.Log(GameManager.Score);
+            if (GameManager.Score >= 5)
+            {
+                Debug.Log("YOU WIN!");
+            }
+        }
         
          if (other.gameObject.CompareTag("Munition"))
         {

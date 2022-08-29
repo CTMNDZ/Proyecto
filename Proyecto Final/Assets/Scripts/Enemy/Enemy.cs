@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     [Range(1f, 10f)]
     private float speed = 2f;
-    enum ZombieTypes { Crawler, Stalker, Rioter };
+    enum ZombieTypes { Crawler, Stalker, Rioter, Nada };
 
     [SerializeField] ZombieTypes zombieType;
 

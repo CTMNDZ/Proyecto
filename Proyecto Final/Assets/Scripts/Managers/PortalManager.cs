@@ -6,7 +6,7 @@ public class PortalManager : MonoBehaviour
 {
 
     [SerializeField]
-    [Range(2, 10)]
+    [Range(1, 10)]
     private float cooldown;
 
     [SerializeField]

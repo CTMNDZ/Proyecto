@@ -8,6 +8,13 @@ public class PlayerData : MonoBehaviour
     [Range(1,3)]
     private int live = 3;
     public int HP { get { return live; } }
+
+    public int Points = 0;
+
+    public void Start()
+    {
+        Points = 0;
+    }
     
     
     public void Damage(int value)
@@ -24,6 +31,10 @@ public class PlayerData : MonoBehaviour
         live -= 3;
     }
     public void Healing(int value)
+    {
+        Points += value;
+    }
+    public void Score(int value)
     {
         live += value;
     }

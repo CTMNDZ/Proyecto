@@ -21,7 +21,7 @@ public class MoveFoward : MonoBehaviour
 
     private void Move()
     {
-        transform.Translate(Vector3.back * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     }
 
     private void DestroyDelay()

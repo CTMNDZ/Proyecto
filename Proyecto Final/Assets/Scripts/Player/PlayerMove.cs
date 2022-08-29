@@ -7,10 +7,12 @@ public class PlayerMove : MonoBehaviour
 [SerializeField]
     [Range(1f, 10f)]
     private float speed = 3f;
+    private float rotSpeed;
     private float cameraAxisX = 0f;
     [SerializeField] Animator playerAnimator;
 
     private Vector3 playerDirection;
+
     void Start()
     {
 
