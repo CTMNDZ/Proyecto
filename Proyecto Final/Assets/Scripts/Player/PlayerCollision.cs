@@ -14,6 +14,8 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField]
     Transform[] Teleporters;
 
+    [SerializeField] MunitionManager munitionManager;
+
     private float TimeTouchEnemy = 0;
 
     private bool Touch = true;
@@ -23,6 +25,7 @@ public class PlayerCollision : MonoBehaviour
         playerData = GetComponent<PlayerData>();
         TimeTouchEnemy = 0;
         playerData.Points = 0;
+        
     }
 
     // Update is called once per frame
@@ -64,6 +67,12 @@ public class PlayerCollision : MonoBehaviour
                 Debug.Log("GAME OVER");
             }
 
+            if (!munitionManager.MunitionDirectory.ContainsKey(other.gameObject.name))
+            {
+                munitionManager.MunitionDirectory.Add(other.gameObject.name, other.gameObject);
+                Debug.Log(munitionManager.MunitionDirectory[other.gameObject.name]);
+            }
+
             GameManager.Score--;
             Debug.Log(GameManager.Score);
         }
@@ -89,5 +98,15 @@ public class PlayerCollision : MonoBehaviour
             }
         }
         
+    }
+
+     private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            other.gameObject.SetActive(false);
+            munitionManager.MunitionList.Add(other.gameObject);
+        }
     }
 }
