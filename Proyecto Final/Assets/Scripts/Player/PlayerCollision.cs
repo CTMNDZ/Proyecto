@@ -25,6 +25,7 @@ public class PlayerCollision : MonoBehaviour
         playerData = GetComponent<PlayerData>();
         TimeTouchEnemy = 0;
         playerData.Points = 0;
+        HudManager.SetHPBar(playerData.HP);
         
     }
 
@@ -42,6 +43,7 @@ public class PlayerCollision : MonoBehaviour
             Destroy(other.gameObject);
             //sumar vida
             playerData.Healing(other.gameObject.GetComponent<Life>().HealPoints);
+            HudManager.SetHPBar(playerData.HP);
 
             //SUMAS SCORE
         }
@@ -61,6 +63,7 @@ public class PlayerCollision : MonoBehaviour
         {
             Debug.Log("ENTRANDO EN COLISION CON " + other.gameObject.name);
             playerData.Damage(other.gameObject.GetComponent<Munition>().DamagePoints);
+            HudManager.SetHPBar(playerData.HP);
             Destroy(other.gameObject);
             if (playerData.HP <= 0)
             {
