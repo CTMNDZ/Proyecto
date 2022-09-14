@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class PlayerCollision : MonoBehaviour
     private float TimeTouchEnemy = 0;
 
     private bool Touch = true;
+    public static event Action OnDead;
+    public static event Action<int> OnChangeHP;
 
     private void Start()
     {
@@ -26,6 +29,7 @@ public class PlayerCollision : MonoBehaviour
         TimeTouchEnemy = 0;
         playerData.Points = 0;
         HudManager.SetHPBar(playerData.HP);
+        PlayerCollision.OnChangeHP?.Invoke(playerData.HP);
         
     }
 
@@ -42,8 +46,10 @@ public class PlayerCollision : MonoBehaviour
         {
             Destroy(other.gameObject);
             //sumar vida
-            playerData.Healing(other.gameObject.GetComponent<Life>().HealPoints);
-            HudManager.SetHPBar(playerData.HP);
+            //playerData.Healing(other.gameObject.GetComponent<Life>().HealPoints);
+            PlayerEvents.OnHealCall(other.gameObject.GetComponent<Life>().HealPoints);
+            PlayerCollision.OnChangeHP?.Invoke(playerData.HP);
+            //HudManager.SetHPBar(playerData.HP);
 
             //SUMAS SCORE
         }
@@ -56,14 +62,17 @@ public class PlayerCollision : MonoBehaviour
             if (GameManager.Score >= 5)
             {
                 Debug.Log("YOU WIN!");
+                PlayerEvents.OnWinCall();
             }
         }
         
          if (other.gameObject.CompareTag("Munition"))
         {
+            PlayerEvents.OnDamageCall(other.gameObject.GetComponent<Munition>().DamagePoints);
+            PlayerCollision.OnChangeHP?.Invoke(playerData.HP);
             Debug.Log("ENTRANDO EN COLISION CON " + other.gameObject.name);
-            playerData.Damage(other.gameObject.GetComponent<Munition>().DamagePoints);
-            HudManager.SetHPBar(playerData.HP);
+            //playerData.Damage(other.gameObject.GetComponent<Munition>().DamagePoints);
+            //HudManager.SetHPBar(playerData.HP);
             Destroy(other.gameObject);
             if (playerData.HP <= 0)
             {
