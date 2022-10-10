@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemies : MonoBehaviour
 {
+     [SerializeField]
     protected EnemyData enemyData;
 
 
@@ -20,7 +21,7 @@ public class Enemies : MonoBehaviour
         Attack();
     }
 
-    public void Attack()
+    private void Attack()
     {
         RaycastHit hit;
         if (Physics.Raycast(transform.position + Vector3.up, transform.TransformDirection(Vector3.forward), out hit,enemyData.RangeAttack))
@@ -36,10 +37,15 @@ public class Enemies : MonoBehaviour
         transform.Translate(Vector3.forward * enemyData.speed * Time.deltaTime);
     }
 
-    public void DrawRaycast()
+    private void DrawRaycast()
     {
         Gizmos.color = Color.blue;
         Vector3 directionRay = transform.TransformDirection(Vector3.forward) * enemyData.RangeAttack;
         Gizmos.DrawRay(transform.position + Vector3.up, directionRay);
+    }
+
+    private void OnDrawGizmos() 
+    {
+        DrawRaycast();
     }
 }

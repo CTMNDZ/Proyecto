@@ -8,7 +8,7 @@ using UnityEngine;
     {
         LookPlayer();
         // Rotate Around permite "orbitar" al rededor de una posición.
-        transform.RotateAround(PlayerTransform.position, Vector3.up, 5f * Time.deltaTime);
+        transform.RotateAround(PlayerTransform.position, Vector3.up, 3f * Time.deltaTime);
     }
 
 }

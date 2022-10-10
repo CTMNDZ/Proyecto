@@ -7,19 +7,21 @@ public class EnemyStalker : Enemies
     // Start is called before the first frame update
    [SerializeField] Transform playerTransform;
 
+    private float speed = 2f;
+
     public Transform PlayerTransform { get => playerTransform; }
 
     protected override void Move()
     {
         //base.Move();
         LookPlayer();
-        // Con la resta vectorial obtengo la dirección que me permite desplazarme hacia el player.
-        Vector3 direction = (PlayerTransform.position - transform.position);
-        // Uso la magnitude para avanzar solo hasta cierta distancia (y no superponer el enemigo)
-        if (direction.magnitude > 1f)
+
+        Vector3 direction = (playerTransform.position - transform.position);
+
+        if (direction.magnitude > 0.1f)
         {
-            // Uso normalized para trasformar el vector en un vector de magnitud uno (para avanzar de forma gradual y constante cada frame)
-            transform.position += direction.normalized * enemyData.speed * Time.deltaTime;
+
+           transform.position += direction.normalized * speed * Time.deltaTime;
         }
     }
 

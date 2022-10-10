@@ -71,8 +71,7 @@ public class PlayerCollision : MonoBehaviour
             PlayerEvents.OnDamageCall(other.gameObject.GetComponent<Munition>().DamagePoints);
             PlayerCollision.OnChangeHP?.Invoke(playerData.HP);
             Debug.Log("ENTRANDO EN COLISION CON " + other.gameObject.name);
-            //playerData.Damage(other.gameObject.GetComponent<Munition>().DamagePoints);
-            //HudManager.SetHPBar(playerData.HP);
+            
             Destroy(other.gameObject);
             if (playerData.HP <= 0)
             {
